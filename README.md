@@ -17,8 +17,13 @@ a personal fork of [AudioAnchor](https://github.com/flackbash/AudioAnchor) for [
   - VIBRATE
 
 ## Screenshots
+![Screenshot 1](https://raw.githubusercontent.com/MyOS-Android/my.android.audiobook/master/pictures/Screenshot_4.png)
+![Screenshot 2](https://raw.githubusercontent.com/MyOS-Android/my.android.audiobook/master/pictures/Screenshot_2.png)
+![Screenshot 3](https://raw.githubusercontent.com/MyOS-Android/my.android.audiobook/master/pictures/Screenshot_3.png)
+![Screenshot 4](https://raw.githubusercontent.com/MyOS-Android/my.android.audiobook/master/pictures/Screenshot_1.png)
 
 ## Changes
   - [X] Based on AudioAnchor v2.2 b19
   - [X] Remove values
   - [X] Change Logo
+  - [X] Change Colors

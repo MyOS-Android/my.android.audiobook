@@ -19,4 +19,6 @@ a personal fork of [AudioAnchor](https://github.com/flackbash/AudioAnchor) for [
 ## Screenshots
 
 ## Changes
-
+  - [X] Based on AudioAnchor v2.2 b19
+  - [X] Remove values
+  - [X] Change Logo

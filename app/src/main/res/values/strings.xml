@@ -1,0 +1,109 @@
+<resources>
+    <string name="channel_name">Show media controls</string>
+    <string name="channel_description">Notification channel to display the media controls.</string>
+    <string name="button_pause">Pause</string>
+    <string name="button_play">Play</string>
+    <string name="button_backward">Backward</string>
+    <string name="button_forward">Forward</string>
+
+    <!-- Toast messages -->
+    <string name="no_albums">It\'s a bit empty here. Start by adding a directory to your library.</string>
+    <string name="no_directories">No directories added yet.</string>
+    <string name="no_audio_files">No audio files found in this album.</string>
+    <string name="play_error">The selected audio file is not playable. Maybe the file does not exist anymore.</string>
+    <string name="permission_denied">Necessary permission was not granted. Quit AudioBook.</string>
+    <string name="write_permission_denied">Necessary permission was not granted. Export cannot be executed.</string>
+    <string name="time_format_error">Please enter a valid time in the format hh:mm:ss.</string>
+    <string name="import_success">Import successful :)</string>
+    <string name="import_fail">Something went wrong. Import failed.</string>
+    <string name="export_success">Exported database to %s.</string>
+    <string name="export_fail">Something went wrong. Export failed.</string>
+    <string name="synchronize_success">Synchronized library.</string>
+    <string name="audio_file_error">There is a problem with the audio file \"%s\".</string>
+    <string name="empty_title_error">Please enter a title for your bookmark.</string>
+    <string name="jumped_to_bookmark">Jumped to bookmark \"%s\" at %s.</string>
+    <string name="bookmark_deleted">Bookmark deleted.</string>
+    <string name="tracks_deleted">%d track(s) deleted.</string>
+    <string name="tracks_deleted_from_db">Deleted %d track(s) from your library.</string>
+    <string name="files_deleted">Deleted %d album(s) and %d track(s).</string>
+    <string name="albums_deleted_from_db">Deleted %d album(s) from your library.</string>
+    <string name="directories_deleted_from_db">Deleted %d directoy(s) from library</string>
+    <string name="cannot_mark_as_not_started">Cannot mark currently playing track as not started.</string>
+    <string name="cannot_mark_as_completed">Cannot mark currently playing track as completed.</string>
+    <string name="path">Path: %s</string>
+    <string name="directory_exists">The selected directory already exists in your library: %s.</string>
+    <string name="parent_directory_exists">You can\'t add subdirectories of directories that already exist in your library:\n%s\n%s.</string>
+    <string name="sub_directory_exists">You can\'t add parent directories of directories that already exist in your library:\n%s\n%s.</string>
+
+    <!-- Settings strings -->
+    <string name="settings_autoplay_label">Autoplay</string>
+    <string name="settings_autoplay_restart_label">Replay tracks from beginning in autoplay queue</string>
+    <string name="settings_progress_percentage_label">Show progress in percent</string>
+    <string name="settings_keep_deleted_label">Keep progress of deleted files in database</string>
+    <string name="settings_cover_from_metadata_label">Get cover image from metadata</string>
+    <string name="settings_sleep_timer_category">Sleep timer :</string>
+    <string name="settings_sleep_fadeout_label">Fade out time</string>
+    <string name="settings_shake_label">Shake to reset sleep timer</string>
+    <string name="settings_shake_sensitivity_label">Shake sensitivity</string>
+    <string name="settings_vibrate_shake_reset_label">Vibrate on reset by shake</string>
+    <string name="settings_continue_until_end_label">Keep playing until end of current track</string>
+    <string name="settings_title_from_metadata_label">Get track title from metadata</string>
+    <string name="settings_dark_label">Dark theme</string>
+    <string name="settings_autorewind_label">Autorewind time</string>
+    <string name="settings_immediate_playback_label">Start playback immediately after selecting item</string>
+    <string name="settings_show_hidden_label">Show hidden files</string>
+    <string name="settings_display_category">Display :</string>
+    <string name="settings_playback_category">Playback :</string>
+    <string name="settings_miscellaneous_category">Miscellaneous :</string>
+    <string name="settings_sort_order_by_title_label">By title</string>
+    <string name="settings_sort_order_by_directory_label">By directory</string>
+    <string name="settings_sort_order_label">Album sort order</string>
+
+    <!-- Layout Texts -->
+    <string name="title">Title</string>
+    <string name="album">Album</string>
+    <string name="choose_directory">Add directory</string>
+    <string name="settings">Settings</string>
+    <string name="time_completed_percent">%d%% complete</string>
+    <string name="sleep_timer">Sleep timer</string>
+    <string name="go_to">Go to</string>
+    <string name="set_bookmark">Set bookmark</string>
+    <string name="edit_bookmark">Edit bookmark</string>
+    <string name="about">About</string>
+    <string name="export_db">Export database</string>
+    <string name="import_db">Import database</string>
+    <string name="synchronize">Synchronize</string>
+    <string name="set_bookmark_name">Enter the name of the bookmark</string>
+    <string name="set_bookmark_at">Set bookmark at</string>
+    <string name="no_bookmarks">There are no bookmarks for this audio file yet.</string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="delete">Delete</string>
+    <string name="delete_from_db">Delete from database</string>
+    <string name="remove_from_library">Remove from library</string>
+    <string name="mark_as_not_started">Mark as not started</string>
+    <string name="mark_as_completed">Mark as completed</string>
+    <string name="items_selected">%d selected</string>
+    <string name="mark_all_as_not_started">Mark all tracks as not started</string>
+    <string name="mark_all_as_completed">Mark all tracks as completed</string>
+    <string name="playback_speed">Playback speed</string>
+    <string name="about_contributors">Find MyOS on Github</string>
+    <string name="about_report_bugs">This is also the place to report bugs, make a contribution yourself or leave a star if you like the app.</string>
+    <string name="add_sub_dir">Add directory that\ncontains audio files</string>
+    <string name="add_parent_dir">Add directory with\nsubdirectories that\ncontain audio files</string>
+    <string name="add_directory">You can select a single directory that contains audio files or a parent directory that contains several directories containing audio files.</string>
+
+    <!-- Dialog strings -->
+    <string name="dialog_msg_select_dir">Select directory</string>
+    <string name="dialog_msg_sleep_timer">Enter the number of minutes for which the player should keep playing</string>
+    <string name="dialog_msg_ok">OK</string>
+    <string name="dialog_msg_cancel">Cancel</string>
+    <string name="dialog_msg_close">Close</string>
+    <string name="dialog_msg_delete">Delete</string>
+    <string name="dialog_msg_goto">Enter the time to which you want to jump</string>
+    <string name="dialog_msg_delete_album">Are you sure you want to delete the selected directory(s) and their contents?</string>
+    <string name="dialog_msg_delete_album_from_db">Are you sure you want to remove the selected album(s) and their contents from your library? This operation will only be performed for files that do not exist anymore in the file system.</string>
+    <string name="dialog_msg_delete_audio">Are you sure you want to delete the selected track(s)?</string>
+    <string name="dialog_msg_delete_audio_from_db">Are you sure you want to remove the selected track(s) from the library? This operation will only be performed for files that do not exist anymore in the file system.</string>
+    <string name="dialog_msg_delete_bookmark">Delete this bookmark?</string>
+    <string name="dialog_msg_delete_directory_from_db">Are you sure you want to remove the selected directory from your library? This will also delete its albums, audio files and bookmarks from your library.</string>
+</resources>

@@ -1,0 +1,66 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorTint">#303030</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorDeletableIcon">@color/colorBackgroundLightDarkTheme</item>
+        <item name="playActivityHeaderBG">@color/colorBackgroundStrong</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/list_item_activated_background
+        </item>
+        <item name="actionModeStyle">@style/LStyled.ActionMode</item>
+    </style>
+
+    <!-- Application dark theme. -->
+    <style name="AppThemeDark" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorTint">#E8E8E8</item>
+        <item name="colorAccent">#f0b310</item>
+        <item name="colorDeletableIcon">@color/colorBackgroundLightNoTrans</item>
+        <item name="playActivityHeaderBG">@color/colorBackgroundStrongDarkTheme</item>
+        <item name="android:activatedBackgroundIndicator">
+            @drawable/list_item_activated_background_dark
+        </item>
+        <item name="actionModeStyle">@style/LStyled.ActionMode</item>
+    </style>
+
+    <style name="LStyled.ActionMode" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="background">@color/colorPrimaryBright</item>
+    </style>
+
+    <style name="EmptyListTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_margin">@dimen/standard_margin</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="EmptyListProgressBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <style name="MediaControlFAB">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:src">@drawable/ic_play_white</item>
+        <item name="android:layout_margin">@dimen/standard_margin</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="fab_label_style">
+        <item name="android:background">@color/colorBackgroundMediumNoTrans</item>
+        <item name="android:textColor">@color/colorBackgroundLightNoTrans</item>
+        <item name="android:padding">@dimen/small_margin</item>
+    </style>
+
+</resources>

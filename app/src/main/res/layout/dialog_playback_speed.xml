@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/playback_speed_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/medium_font_size"
+            android:padding="@dimen/standard_margin" />
+
+        <ImageView
+            android:id="@+id/reset"
+            android:layout_width="@dimen/reset_button_height"
+            android:layout_height="@dimen/reset_button_height"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/reset_button"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/standard_margin"/>
+    </RelativeLayout>
+
+
+    <SeekBar
+        android:id="@+id/playback_speed_sb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/standard_margin"
+        android:paddingRight="@dimen/standard_margin"
+        android:paddingBottom="@dimen/standard_margin" />
+
+</LinearLayout>

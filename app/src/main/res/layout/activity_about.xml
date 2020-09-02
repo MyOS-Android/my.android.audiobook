@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="@dimen/about_icon_height"
+        android:layout_height="@dimen/about_icon_height"
+        android:layout_margin="@dimen/medium_margin"
+        android:src="@drawable/audiobook_icon" />
+
+    <TextView
+        android:id="@+id/about_text_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/big_font_size"
+        android:paddingBottom="@dimen/small_margin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/small_font_size"
+        android:textStyle="italic"
+        android:text="@string/copyright" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/small_margin"
+        android:textSize="@dimen/small_font_size"
+        android:paddingEnd="@dimen/small_margin"
+        android:text="@string/about_contributors"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:autoLink="all"
+        android:textColorLink="?attr/colorPrimaryDark"
+        android:linksClickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/small_font_size"
+        android:paddingEnd="@dimen/small_margin"
+        android:paddingStart="@dimen/small_margin"
+        android:paddingBottom="@dimen/standard_margin"
+        android:text="@string/github_link"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/small_font_size"
+        android:paddingEnd="@dimen/large_margin"
+        android:paddingStart="@dimen/large_margin"
+        android:text="@string/about_report_bugs"
+        android:textAlignment="center"/>
+
+</LinearLayout>

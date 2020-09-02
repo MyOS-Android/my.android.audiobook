@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/audio_storage_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:drawSelectorOnTop="true"
+    android:gravity="center_vertical"
+    android:background="?android:attr/activatedBackgroundIndicator">
+
+    <ImageView
+        android:id="@+id/audio_storage_item_thumbnail"
+        android:layout_width="@dimen/album_info_height"
+        android:layout_height="@dimen/album_info_height"
+        android:src="@drawable/empty_cover_grey_blue" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/audio_storage_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/small_margin"
+            android:text="@string/album"
+            android:textSize="@dimen/big_font_size"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/album_info_time_album"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/small_margin"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
+            android:textSize="@dimen/small_font_size"
+            android:layout_below="@id/audio_storage_item_title" />
+
+        <ImageView
+            android:id="@+id/album_item_deletable_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_deletable"
+            android:tint="?colorDeletableIcon"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>
+

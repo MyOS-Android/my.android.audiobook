@@ -6,8 +6,8 @@ android {
         applicationId "my.android.audiobook"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 3
-        versionName "0.3"
+        versionCode 1
+        versionName "0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

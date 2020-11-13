@@ -1,5 +1,6 @@
 package my.android.audiobook.activities;
 
+import android.Manifest;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -10,12 +11,16 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -75,6 +80,7 @@ public class AlbumActivity extends AppCompatActivity implements LoaderManager.Lo
 
     // Variables for multi choice mode
     ArrayList<Long> mSelectedTracks = new ArrayList<>();
+    ArrayList<Long> mTmpSelectedTracks;
 
     // MediaPlayerService variables
     private MediaPlayerService mPlayer;
@@ -202,7 +208,15 @@ public class AlbumActivity extends AppCompatActivity implements LoaderManager.Lo
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_delete:
-                        deleteSelectedTracksWithConfirmation();
+                        // Check if app has the necessary permissions
+                        if (ContextCompat.checkSelfPermission(AlbumActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            // This is necessary because requesting permission destroys action mode
+                            // such that selected tracks are cleared
+                            mTmpSelectedTracks = new ArrayList<>(mSelectedTracks);
+                            ActivityCompat.requestPermissions(AlbumActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MainActivity.PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE_DELETE);
+                        } else {
+                            deleteSelectedTracksWithConfirmation();
+                        }
                         actionMode.finish();
                         return true;
                     case R.id.menu_delete_from_db:
@@ -251,8 +265,6 @@ public class AlbumActivity extends AppCompatActivity implements LoaderManager.Lo
                 LocalBroadcastManager.getInstance(AlbumActivity.this).sendBroadcast(broadcastIntent);
             }
         });
-
-        scrollToNotCompletedAudio();
 
         // Bind to MediaPlayerService if it has been started by the PlayActivity
         bindToServiceIfRunning();
@@ -354,6 +366,7 @@ public class AlbumActivity extends AppCompatActivity implements LoaderManager.Lo
 
         // Swap the new cursor in. The framework will take care of closing the old cursor
         mCursorAdapter.swapCursor(cursor);
+        scrollToLastPlayed(cursor);
     }
 
     @Override
@@ -382,6 +395,23 @@ public class AlbumActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         return (super.onOptionsItemSelected(item));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MainActivity.PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE_DELETE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    // Permission was not granted
+                    Toast.makeText(getApplicationContext(), R.string.write_permission_denied, Toast.LENGTH_LONG).show();
+                } else {
+                    mSelectedTracks = mTmpSelectedTracks;
+                    deleteSelectedTracksWithConfirmation();
+                }
+                break;
+            }
+        }
     }
 
     /*
@@ -505,24 +535,10 @@ public class AlbumActivity extends AppCompatActivity implements LoaderManager.Lo
     /*
      * Scroll to the last non-completed track in the list view
      */
-    private void scrollToNotCompletedAudio() {
-        String[] columns = new String[]{BookContract.AudioEntry.COLUMN_COMPLETED_TIME, BookContract.AudioEntry.COLUMN_TIME};
-        String sel = BookContract.AudioEntry.COLUMN_ALBUM + "=?";
-        String[] selArgs = {Long.toString(mAlbum.getID())};
-
-        Cursor c = getContentResolver().query(BookContract.AudioEntry.CONTENT_URI,
-                columns, sel, selArgs, null, null);
-
-        // Bail early if the cursor is null
-        if (c == null) {
-            return;
-        } else if (c.getCount() < 1) {
-            c.close();
-            return;
-        }
-
+    private void scrollToNotCompletedAudio(Cursor c) {
         // Loop through the database rows and check for non-completed tracks
         int scrollTo = 0;
+        c.moveToFirst();
         while (c.moveToNext()) {
             int duration = c.getInt(c.getColumnIndex(BookContract.AudioEntry.COLUMN_TIME));
             int completed = c.getInt(c.getColumnIndex(BookContract.AudioEntry.COLUMN_COMPLETED_TIME));
@@ -531,33 +547,17 @@ public class AlbumActivity extends AppCompatActivity implements LoaderManager.Lo
             }
             scrollTo += 1;
         }
-        c.close();
-
         mListView.setSelection(Math.max(scrollTo - 1, 0));
     }
 
     /*
-     * Scroll to the last non-completed track in the list view
+     * Scroll to the last played track in the list view
      */
-    private void scrollToLastPlayed() {
-        String[] columns = new String[]{BookContract.AudioEntry._ID};
-        String sel = BookContract.AudioEntry.COLUMN_ALBUM + "=?";
-        String[] selArgs = {Long.toString(mAlbum.getID())};
-
-        Cursor c = getContentResolver().query(BookContract.AudioEntry.CONTENT_URI,
-                columns, sel, selArgs, null, null);
-
-        // Bail early if the cursor is null
-        if (c == null) {
-            return;
-        } else if (c.getCount() < 1) {
-            c.close();
-            return;
-        }
-
-        // Loop through the database rows and check for non-completed tracks
+    private void scrollToLastPlayed(Cursor c) {
+        // Loop through the cursor rows and check for the id that matches the last played track
         int count = 0;
         int scrollTo = 0;
+        c.moveToFirst();
         while (c.moveToNext()) {
             long id = c.getLong(c.getColumnIndex(BookContract.AudioEntry._ID));
             if (id == mAlbum.getLastPlayedID()) {
@@ -566,9 +566,7 @@ public class AlbumActivity extends AppCompatActivity implements LoaderManager.Lo
             }
             count += 1;
         }
-        c.close();
-
-        mListView.setSelection(Math.max(scrollTo - 1, 0));
+        mListView.setSelection(Math.max(scrollTo, 0));
     }
 
     /*
@@ -641,6 +639,7 @@ public class AlbumActivity extends AppCompatActivity implements LoaderManager.Lo
             mSynchronizer.updateDBTables();
             String deletedTracks = getResources().getString(R.string.tracks_deleted, deletionCount);
             Toast.makeText(getApplicationContext(), deletedTracks, Toast.LENGTH_LONG).show();
+            mSelectedTracks.clear();
         });
 
         builder.setNegativeButton(R.string.dialog_msg_cancel, (dialog, id) -> {

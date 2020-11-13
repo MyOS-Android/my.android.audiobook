@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1f1f1f</color>
-    <color name="colorPrimaryDark">#8C8C8C</color>
-    <color name="colorPrimaryBright">#393939</color>
     <color name="colorAccent">#f15c22</color>
     <color name="colorBackgroundLight">#44B8BCC7</color>
-    <color name="colorTint">#C5C5C5</color>
-    <color name="colorBackgroundLightNoTrans">#E3E4E9</color>
-    <color name="colorBackgroundStrong">#BBDBDDE3</color>
-    <color name="colorBackgroundStrongNoTrans">#DBDDE3</color>
-    <color name="colorBackgroundMediumNoTransDarkTheme">#999a9e</color>
     <color name="colorBackgroundLightDarkTheme">#BB6D6E71</color>
-    <color name="colorBackgroundStrongDarkTheme">#BB000000</color>
-    <color name="colorOverlay">#88000000</color>
+    <color name="colorBackgroundLightNoTrans">#E3E4E9</color>
     <color name="colorBackgroundMediumNoTrans">#5b5c5e</color>
+    <color name="colorBackgroundMediumNoTransDarkTheme">#999a9e</color>
+    <color name="colorBackgroundStrong">#BBDBDDE3</color>
+    <color name="colorBackgroundStrongDarkTheme">#BB000000</color>
+    <color name="colorBackgroundStrongNoTrans">#DBDDE3</color>
     <color name="colorGreyBlue">#536872</color>
+    <color name="colorOverlay">#88000000</color>
+    <color name="colorPrimary">#1f1f1f</color>
+    <color name="colorPrimaryBright">#393939</color>
+    <color name="colorPrimaryDark">#8C8C8C</color>
+    <color name="colorTint">#C5C5C5</color>
 </resources>

@@ -34,6 +34,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import my.android.audiobook.models.Album;
 import my.android.audiobook.models.AudioFile;
@@ -272,7 +273,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
             // Set playback speed according to preferences
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 int speed = mSharedPreferences.getInt(getString(R.string.preference_playback_speed_key), Integer.parseInt(getString(R.string.preference_playback_speed_default)));
-                mMediaPlayer.setPlaybackParams(mMediaPlayer.getPlaybackParams().setSpeed((float) (speed / 10.0)));
+                setPlaybackSpeedIfInLegalRange((float) (speed / 10.0));
             }
 
             mMediaPlayer.prepare();
@@ -604,34 +605,35 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         PendingIntent deleteIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 0, intent, 0);
 
         // Create a new notification
-        mNotificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
-        mNotificationBuilder.setShowWhen(false);
-        mNotificationBuilder.setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
-                // Attach our MediaSession token
-                .setMediaSession(mediaSession.getSessionToken())
-                // Show our playback controls in the compat view
-                .setShowActionsInCompactView(0, 1, 2));
-        mNotificationBuilder.setColor(getResources().getColor(R.color.colorAccent));
-        mNotificationBuilder.setLargeIcon(notificationCover);
-        mNotificationBuilder.setSmallIcon(R.drawable.ic_notification_new);
-        mNotificationBuilder.setContentText(mActiveAudio.getAlbumTitle());
-        mNotificationBuilder.setContentTitle(audioTitle);
-        mNotificationBuilder.setContentIntent(launchIntent);
-        mNotificationBuilder.setDeleteIntent(deleteIntent);
-        mNotificationBuilder.setVisibility(VISIBILITY_PUBLIC);
-        mNotificationBuilder.setOngoing(title.equals(getString(R.string.button_pause)));
-        mNotificationBuilder.addAction(R.drawable.ic_media_backward, getString(R.string.button_backward), playbackAction(3));
-        mNotificationBuilder.addAction(notificationAction, title, play_pauseAction);
-        mNotificationBuilder.addAction(R.drawable.ic_media_forward, getString(R.string.button_forward), playbackAction(2));// Hide the timestamp
-// Set the notification style
-// Set the notification color
-// Set the large and small icons
-// Set notification content information
-// Set the intent for the activity that is launched on click
-// Set intent that is launched on delete notificaiton
-// Set the visibility for the lock screen
-// Make notification non-removable if the track is currently playing
-// Add playback actions
+        mNotificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                // Hide the timestamp
+                .setShowWhen(false)
+                // Set the notification style
+                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                        // Attach our MediaSession token
+                        .setMediaSession(mediaSession.getSessionToken())
+                        // Show our playback controls in the compat view
+                        .setShowActionsInCompactView(0, 1, 2))
+                // Set the notification color
+                .setColor(getResources().getColor(R.color.colorAccent))
+                // Set the large and small icons
+                .setLargeIcon(notificationCover)
+                .setSmallIcon(R.drawable.ic_notification_new)
+                // Set notification content information
+                .setContentText(mActiveAudio.getAlbumTitle())
+                .setContentTitle(audioTitle)
+                // Set the intent for the activity that is launched on click
+                .setContentIntent(launchIntent)
+                // Set intent that is launched on delete notificaiton
+                .setDeleteIntent(deleteIntent)
+                // Set the visibility for the lock screen
+                .setVisibility(VISIBILITY_PUBLIC)
+                // Make notification non-removable if the track is currently playing
+                .setOngoing(title.equals(getString(R.string.button_pause)))
+                // Add playback actions
+                .addAction(R.drawable.ic_media_backward, getString(R.string.button_backward), playbackAction(3))
+                .addAction(notificationAction, title, play_pauseAction)
+                .addAction(R.drawable.ic_media_forward, getString(R.string.button_forward), playbackAction(2));
 
         Notification notification = mNotificationBuilder.build();
         if (isPlaying()) {
@@ -818,7 +820,17 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         if (!isPlaying) {
             initMediaPlayer(mActiveAudio.getPath(), mMediaPlayer.getCurrentPosition());
         } else {
+            setPlaybackSpeedIfInLegalRange(speed);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    void setPlaybackSpeedIfInLegalRange(float speed) {
+        try {
             mMediaPlayer.setPlaybackParams(mMediaPlayer.getPlaybackParams().setSpeed(speed));
+        } catch (IllegalArgumentException e) {
+            String illegalSpeed = getResources().getString(R.string.illegal_speed, speed);
+            Toast.makeText(getApplicationContext(), illegalSpeed, Toast.LENGTH_LONG).show();
         }
     }
 
